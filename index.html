@@ -1123,9 +1123,12 @@ function openModal(name){
     var opts=sel.options;
     
     for(var i=0;i<opts.length;i++){
-      if(opts[i].text.trim() == name.trim()){
-        sel.selectedIndex=i;
-        break;
+      if(
+         opts[i].textContent.replace(/&/g,'&').trim() ===
+    name.replace(/&amp;/g,'&').trim()
+  ){
+    sel.selectedIndex=i;
+    break;
         }
     }
   } else {
