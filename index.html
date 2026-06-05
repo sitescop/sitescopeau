@@ -706,7 +706,7 @@
       <div class="h-form-title">📋 Get a Free Quote in 60 Seconds</div>
       <div class="h-form-sub">No obligation — we'll call within 2 hours</div>
       <hr>
-      <form onsubmit="handleHero(event)">
+      <form action="https://formspree.io/f/xzdqzonq" method="POST">
         <div class="fg">
           <label>Inspection Type</label>
           <select name="service" required>
@@ -1144,8 +1144,8 @@ function handleModalBgClick(e){
 
 /* ════ FORM HANDLERS ════ */
 function handleHero(e){
-  e.preventDefault();
-  e.target.innerHTML="<div style='text-align:center;padding:24px 0'><div style='font-size:2.5rem;margin-bottom:12px'>&#9989;</div><h3 style='color:var(--navy);margin-bottom:8px'>Quote Request Sent!</h3><p style='color:var(--muted)'>We\'ll call you within 2 hours.</p></div>";
+  return true;
+}
 }
 function handleCt(e){
   e.preventDefault();
