@@ -1121,8 +1121,12 @@ function openModal(name){
   if(name&&name!=="General Inspection"){
     svc.textContent=name;
     var opts=sel.options;
+    
     for(var i=0;i<opts.length;i++){
-      if(opts[i].text===name){sel.selectedIndex=i;break;}
+      if(opts[i].text.includes(name) || name.includes(opts[i].text)){
+        sel.selectedIndex=i;
+        break;
+        }
     }
   } else {
     svc.textContent="Fill in your details below";
