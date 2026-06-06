@@ -1214,9 +1214,12 @@ async function handleModal(e){
         });
 
         if(response.ok){
-            alert("Booking Confirmed! Our team will call you within 2 hours.");
-form.reset();
-closeModal();
+            form.innerHTML =
+"<div style='text-align:center;padding:30px'>" +
+"<div style='font-size:3rem'>✅</div>" +
+"<h3>Booking Request Received!</h3>" +
+"<p>Our team will call you within 2 hours to confirm your inspection.</p>" +
+"</div>";
         } else {
             alert('Booking request failed.');
         }
