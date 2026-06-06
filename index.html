@@ -1214,10 +1214,9 @@ async function handleModal(e){
         });
 
         if(response.ok){
-            form.innerHTML =
-            "<div style='text-align:center;padding:28px 0'><div style='font-size:3rem;margin-bottom:14px'>✅</div><h3 style='color:var(--navy);margin-bottom:10px;font-size:1.2rem'>Booking Confirmed!</h3><p style='color:var(--muted);font-size:.9rem'>Our team will call you within 2 hours to confirm your inspection.</p></div>";
-
-            setTimeout(closeModal,4000);
+            alert("Booking Confirmed! Our team will call you within 2 hours.");
+form.reset();
+closeModal();
         } else {
             alert('Booking request failed.');
         }
@@ -1225,10 +1224,7 @@ async function handleModal(e){
         alert('Booking request failed.');
     }
 }
-  e.preventDefault();
-  document.getElementById("modalForm").innerHTML="<div style='text-align:center;padding:28px 0'><div style='font-size:3rem;margin-bottom:14px'>&#9989;</div><h3 style='color:var(--navy);margin-bottom:10px;font-size:1.2rem'>Booking Confirmed!</h3><p style='color:var(--muted);font-size:.9rem'>Our team will call you within 2 hours to confirm your inspection.</p></div>";
-  setTimeout(closeModal,4000);
-}
+ 
 
 /* Escape key closes modal */
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
