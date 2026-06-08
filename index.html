@@ -1197,8 +1197,9 @@ formData.append(
 }
 async function handleModal(e){
     e.preventDefault();
-
-    const formData = new FormData(form);
+const form = document.getElementById("modalForm");
+const formData = new FormData(form);
+    
 
 formData.append(
   "Sydney_Time",
