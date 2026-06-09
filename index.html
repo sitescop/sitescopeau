@@ -1243,11 +1243,15 @@ formData.append(
         });
 
       if(response.ok){
-      form.style.display = "none";
-document.getElementById("ctSuccess").style.display = "block";
-        } else {
-            alert('Booking request failed.');
-        }
+    form.innerHTML =
+    "<div style='text-align:center;padding:30px'>" +
+    "<div style='font-size:3rem'>✅</div>" +
+    "<h3>Booking Request Received!</h3>" +
+    "<p>Our team will call you within 2 hours to confirm your inspection.</p>" +
+    "</div>";
+} else {
+    alert('Booking request failed.');
+}
     } catch(err){
         alert('Booking request failed.');
     }
