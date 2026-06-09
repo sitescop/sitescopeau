@@ -1115,9 +1115,7 @@ function openModal(name){
     svc.textContent="Fill in your details below";
     sel.selectedIndex=0;
   }
-  document.getElementById("ctSuccess").style.display = "none";
-document.getElementById("modalForm").style.display = "block";
-document.getElementById("modalForm").reset();
+  
   document.getElementById("modalBg").classList.add("open");
   document.body.style.overflow="hidden";
   document.getElementById("modalBg").scrollTop=0;
@@ -1130,6 +1128,7 @@ function closeModal(){
 
     document.getElementById("ctSuccess").style.display = "none";
     document.getElementById("modalForm").style.display = "block";
+    document.getElementById("modalForm").reset();
 }
 function handleModalBgClick(e){
   if(e.target===document.getElementById("modalBg"))closeModal();
