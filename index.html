@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sitescop — Building &amp; Pest Inspections Sydney</title>
+  <meta name="description" content="Sydney's trusted building and pest inspection specialists. Experienced inspectors, 24-hour reports, thermal imaging. Serving all Greater Sydney suburbs.">
+  <style>
+    /* ══════════════════════════════════════════
+       RESET & DESIGN TOKENS (blue / gold theme)
+    ══════════════════════════════════════════ */
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --navy:    #0b2545;   /* deepest blue — nav chip, footer, top bar */
+      --blue:    #1a5fa0;   /* logo dark blue — stat bar, headings */
+      --sky:     #3a8fd6;   /* logo primary — logo icon bright blue */
+      --sky-lt:  #e8f3ff;   /* ultra-light blue backgrounds */
+      --sky-pale:#f5f9ff;   /* barely-blue white */
+      --gold:    #c9960c;   /* warm antique gold — primary CTAs */
+      --gold-hi: #e0aa1a;   /* hover gold */
+      --gold-lt: #fef9ec;   /* light gold tint */
+      --gold-bd: #e8d5a0;   /* gold border */
+      --white:   #ffffff;
+      --text:    #0d1c32;   /* near-black blue-tinted */
+      --muted:   #4a6080;   /* blue-gray for body text */
+      --border:  #c8dff5;   /* light blue border */
+      --sh-sm:   0 1px 4px rgba(11,37,69,.08);
+      --sh-md:   0 4px 20px rgba(11,37,69,.12);
+      --sh-lg:   0 12px 40px rgba(11,37,69,.15);
+    }
+    html{scroll-behavior:smooth}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      background:var(--white);color:var(--text);
+      line-height:1.65;overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block}
+
+    /* ── LOGO — navy chip so JPEG black bg never shows ── */
+    .logo-chip{
+      display:inline-flex;align-items:center;justify-content:center;
+      background:none;border-radius:12px;padding:5px 8px;
+    }
+    .logo-chip img{
+      height:72px;width:auto;
+      mix-blend-mode:normal;filter:none;
+      display:block;
+    }
+    .logo-chip.sm img{height:72px}
+
+    /* ══════════════════════════════════════════
+       BUTTONS
+    ══════════════════════════════════════════ */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:7px;padding:13px 26px;border-radius:8px;
+      font-weight:700;font-size:.92rem;cursor:pointer;
+      transition:all .22s;border:none;font-family:inherit;
+      line-height:1.3;min-height:48px;white-space:nowrap;
+    }
+    .btn-gold{background:var(--gold);color:#fff}
+    .btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,150,12,.35)}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-blue:hover{background:var(--navy);transform:translateY(-2px)}
+    .btn-outline-blue{background:transparent;border:2px solid var(--sky);color:var(--blue)}
+    .btn-outline-blue:hover{background:var(--sky);color:#fff}
+    .btn-outline-white{background:transparent;border:2px solid rgba(255,255,255,.7);color:#fff}
+    .btn-outline-white:hover{background:rgba(255,255,255,.15);border-color:#fff}
+    .btn-dark{background:var(--navy);color:#fff}
+    .btn-dark:hover{background:#071a38}
+
+    /* ══════════════════════════════════════════
+       TOP BAR — CENTERED text (fix per screenshot)
+    ══════════════════════════════════════════ */
+    .top-bar{background:var(--navy);padding:10px 16px;color:#9ab3cf}
+    .top-bar-inner{
+      max-width:1200px;margin:0 auto;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      text-align:center;gap:5px;font-size:.8rem;
+    }
+    .top-bar a{color:var(--gold-hi);transition:color .2s}
+    .top-bar a:hover{color:#fff}
+    .tb-badge{
+      background:var(--gold);color:#fff;
+      font-size:.68rem;font-weight:700;
+      padding:2px 9px;border-radius:4px;
+      letter-spacing:.04em;display:inline-block;margin-right:4px;
+    }
+    @media(min-width:640px){
+      .top-bar-inner{flex-direction:row;gap:20px}
+    }
+
+    /* ══════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════ */
+    nav{
+      background:var(--white);
+      border-bottom:2px solid var(--border);
+      position:sticky;top:0;z-index:1000;
+      box-shadow:var(--sh-sm);
+    }
+    .nav-inner{
+      max-width:1200px;margin:0 auto;padding:0 20px;
+      display:flex;align-items:center;justify-content:space-between;
+      height:76px;gap:16px;
+    }
+    .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+    .nav-links a{font-size:.88rem;color:var(--muted);transition:color .2s;font-weight:500}
+    .nav-links a:hover{color:var(--blue)}
+    .nav-ctas{display:flex;gap:12px;align-items:center}
+    .nav-phone{font-size:.9rem;color:var(--blue);font-weight:700;white-space:nowrap}
+
+    /* ── HAMBURGER ── */
+    .hamburger{
+      display:none;flex-direction:column;gap:5px;
+      cursor:pointer;background:none;border:none;
+      padding:10px;-webkit-tap-highlight-color:transparent;
+      z-index:10;
+    }
+    .hamburger span{
+      display:block;width:24px;height:2.5px;
+      background:var(--navy);border-radius:2px;
+      transition:all .3s;pointer-events:none;
+    }
+
+    /* ══════════════════════════════════════════
+       MOBILE MENU
+    ══════════════════════════════════════════ */
+    .m-overlay{
+      display:none;position:fixed;inset:0;
+      z-index:2000;background:rgba(11,37,69,.6);
+    }
+    .m-overlay.open{display:block}
+    .m-menu{
+      position:fixed;top:0;right:0;
+      width:300px;max-width:90vw;height:100vh;
+      background:var(--white);z-index:2001;
+      padding:24px;overflow-y:auto;
+      transform:translateX(100%);
+      transition:transform .3s ease;
+      box-shadow:var(--sh-lg);
+      -webkit-overflow-scrolling:touch;
+    }
+    .m-menu.open{transform:translateX(0)}
+    .m-head{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:28px;padding-bottom:18px;
+      border-bottom:1.5px solid var(--border);
+    }
+    .m-close{
+      background:var(--sky-lt);border:none;
+      border-radius:50%;width:38px;height:38px;
+      font-size:1.2rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--blue);font-weight:700;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .m-links{list-style:none;margin-bottom:24px}
+    .m-links li a{
+      display:block;padding:14px 4px;
+      font-size:1rem;color:var(--text);
+      border-bottom:1.5px solid var(--border);
+      transition:color .2s;font-weight:500;
+    }
+    .m-links li a:hover{color:var(--blue)}
+    .m-ctas{display:flex;flex-direction:column;gap:10px}
+    .m-ctas .btn{display:flex;width:100%}
+
+    /* ══════════════════════════════════════════
+       HERO — light blue gradient, prestigious
+    ══════════════════════════════════════════ */
+    .hero{
+      background:linear-gradient(140deg,var(--sky-pale) 0%,var(--sky-lt) 50%,#f0f8ff 100%);
+      padding:84px 20px 96px;position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:'';position:absolute;
+      top:-100px;right:-100px;
+      width:450px;height:450px;
+      background:radial-gradient(circle,rgba(58,143,214,.1) 0%,transparent 65%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      max-width:1200px;margin:0 auto;
+      display:grid;grid-template-columns:1fr 430px;
+      gap:60px;align-items:center;position:relative;z-index:1;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--white);border:1.5px solid var(--border);
+      color:var(--blue);padding:6px 16px;border-radius:30px;
+      font-size:.78rem;font-weight:700;letter-spacing:.07em;
+      text-transform:uppercase;margin-bottom:22px;
+      box-shadow:var(--sh-sm);
+    }
+    .hero h1{
+      font-size:clamp(1.95rem,3.8vw,3.1rem);
+      font-weight:800;line-height:1.15;
+      margin-bottom:12px;color:var(--text);
+      letter-spacing:-.02em;
+    }
+    .hero h1 em{font-style:normal;color:var(--sky)}
+    .h-line{width:55px;height:3px;background:var(--sky);border-radius:2px;margin:16px 0 22px}
+    .hero-sub{
+      font-size:1.05rem;color:var(--muted);
+      margin-bottom:32px;line-height:1.8;max-width:520px;
+    }
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+    .trust-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+    .trust-item{
+      font-size:.8rem;color:var(--muted);font-weight:500;
+      display:flex;align-items:center;gap:5px;
+    }
+    .trust-item::before{content:'✓';color:var(--sky);font-weight:700}
+
+    /* Hero quote form */
+    .h-form{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:16px;padding:32px;
+      box-shadow:var(--sh-lg);
+    }
+    .h-form-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .h-form-sub{font-size:.8rem;color:var(--muted);margin-bottom:20px;padding-left:30px}
+    .h-form hr{border:none;border-top:1.5px solid var(--border);margin-bottom:20px}
+
+    /* ══════════════════════════════════════════
+       FORM ELEMENTS (universal)
+    ══════════════════════════════════════════ */
+    .fg{margin-bottom:12px}
+    .fg label{
+      display:block;font-size:.73rem;font-weight:700;
+      color:var(--muted);margin-bottom:5px;
+      letter-spacing:.04em;text-transform:uppercase;
+    }
+    .fg select,.fg input,.fg textarea{
+      width:100%;padding:11px 13px;
+      background:var(--sky-pale);
+      border:1.5px solid var(--border);
+      border-radius:7px;color:var(--text);
+      font-size:.9rem;transition:border-color .2s,background .2s;
+      font-family:inherit;-webkit-appearance:none;appearance:none;
+    }
+    .fg select{
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%234a6080' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 13px center;
+      background-color:var(--sky-pale);padding-right:36px;
+    }
+    .fg select option{background:#fff;color:var(--text)}
+    .fg select:focus,.fg input:focus,.fg textarea:focus{
+      outline:none;border-color:var(--sky);background:var(--white);
+      box-shadow:0 0 0 3px rgba(58,143,214,.12);
+    }
+    .fg textarea{resize:vertical;min-height:78px}
+    .f-btn{
+      width:100%;padding:13px;background:var(--gold);
+      color:#fff;font-size:.95rem;font-weight:700;
+      border:none;border-radius:8px;cursor:pointer;
+      transition:all .22s;font-family:inherit;min-height:50px;
+    }
+    .f-btn:hover{background:var(--gold-hi);box-shadow:0 6px 18px rgba(201,150,12,.35);transform:translateY(-1px)}
+    .f-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:10px}
+
+    /* ══════════════════════════════════════════
+       STATS BAR
+    ══════════════════════════════════════════ */
+    .stats-bar{background:var(--blue);padding:20px}
+    .stats-inner{
+      max-width:1200px;margin:0 auto;
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:16px;text-align:center;
+    }
+    .si{display:flex;align-items:center;justify-content:center;gap:10px}
+    .si-icon{font-size:1.5rem}
+    .si-num{font-size:1.35rem;font-weight:800;color:var(--gold-hi);line-height:1}
+    .si-lbl{font-size:.73rem;color:rgba(255,255,255,.7);line-height:1.3}
+
+    /* ══════════════════════════════════════════
+       SECTIONS
+    ══════════════════════════════════════════ */
+    .sec{padding:80px 20px}
+    .sec-w{background:var(--white)}
+    .sec-b{background:var(--sky-pale)}
+    .wrap{max-width:1200px;margin:0 auto}
+    .tag{
+      display:inline-block;background:var(--sky-lt);
+      border:1.5px solid var(--border);color:var(--blue);
+      font-size:.72rem;font-weight:700;letter-spacing:.1em;
+      text-transform:uppercase;padding:4px 14px;border-radius:30px;margin-bottom:12px;
+    }
+    .sec-title{
+      font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:800;
+      line-height:1.2;margin-bottom:14px;color:var(--navy);letter-spacing:-.02em;
+    }
+    .sec-sub{
+      color:var(--muted);max-width:620px;
+      margin-bottom:44px;line-height:1.8;font-size:.97rem;
+    }
+    .blue-line{width:50px;height:3px;background:var(--sky);border-radius:2px;margin:12px 0 20px}
+
+    /* ══════════════════════════════════════════
+       SERVICES
+    ══════════════════════════════════════════ */
+    .srv-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+      gap:18px;
+    }
+    .srv-card{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:14px;padding:26px;cursor:pointer;
+      transition:all .25s;position:relative;overflow:hidden;
+      box-shadow:var(--sh-sm);
+    }
+    .srv-card:hover,.srv-card:focus{
+      border-color:var(--sky);transform:translateY(-4px);
+      box-shadow:var(--sh-lg);outline:none;
+    }
+    .srv-card::before{
+      content:'';position:absolute;top:0;left:0;right:0;
+      height:3px;background:linear-gradient(90deg,var(--sky),var(--blue));
+      transform:scaleX(0);transition:transform .25s;transform-origin:left;
+    }
+    .srv-card:hover::before,.srv-card:focus::before{transform:scaleX(1)}
+    .srv-icon{font-size:2rem;margin-bottom:12px}
+    .srv-card h3{font-size:.97rem;font-weight:700;margin-bottom:9px;color:var(--navy)}
+    .srv-card p{font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:16px}
+    .srv-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .srv-price{font-size:.95rem;font-weight:700;color:var(--sky)}
+    .srv-tag{
+      font-size:.7rem;padding:3px 11px;
+      background:var(--sky-lt);color:var(--blue);
+      border-radius:20px;font-weight:600;white-space:nowrap;
+      border:1px solid var(--border);
+    }
+    .srv-hint{font-size:.74rem;color:#9ab3cf;margin-top:12px;text-align:right}
+
+    /* ══════════════════════════════════════════
+       WHY SITESCOP
+    ══════════════════════════════════════════ */
+    .why-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+    .why-feats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+    .why-feat{
+      background:var(--sky-pale);border:1.5px solid var(--border);
+      border-radius:12px;padding:20px;
+    }
+    .why-feat-ic{font-size:1.7rem;margin-bottom:10px}
+    .why-feat h4{font-size:.92rem;font-weight:700;margin-bottom:7px;color:var(--navy)}
+    .why-feat p{font-size:.83rem;color:var(--muted);line-height:1.65}
+    .cl-head{font-size:.87rem;font-weight:700;color:var(--navy);margin-bottom:14px}
+    .cl-box{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:26px;box-shadow:var(--sh-sm)}
+    .cl{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .cl li{font-size:.84rem;color:var(--text);padding-left:20px;position:relative;line-height:1.4}
+    .cl li::before{content:'✓';position:absolute;left:0;color:var(--sky);font-weight:700}
+
+    /* ══════════════════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════════════════ */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .step{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:14px;padding:26px 20px;box-shadow:var(--sh-sm);
+    }
+    .step-num{
+      width:44px;height:44px;
+      background:linear-gradient(135deg,var(--sky),var(--blue));
+      color:#fff;font-size:1.1rem;font-weight:800;
+      border-radius:50%;display:flex;align-items:center;justify-content:center;
+      margin-bottom:14px;box-shadow:0 4px 12px rgba(26,95,160,.3);
+    }
+    .step h4{font-size:.95rem;font-weight:700;margin-bottom:9px;color:var(--navy)}
+    .step p{font-size:.84rem;color:var(--muted);line-height:1.65}
+
+    /* ══════════════════════════════════════════
+       REVIEWS
+    ══════════════════════════════════════════ */
+    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .rev-card{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:14px;padding:26px;box-shadow:var(--sh-sm);
+    }
+    .rev-stars{color:var(--gold);font-size:1rem;letter-spacing:2px;margin-bottom:4px}
+    .rev-src{font-size:.72rem;color:var(--muted);margin-bottom:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+    .rev-text{font-size:.9rem;color:var(--text);line-height:1.8;margin-bottom:18px;font-style:italic}
+    .rev-auth{display:flex;align-items:center;gap:11px}
+    .rev-av{
+      width:40px;height:40px;
+      background:linear-gradient(135deg,var(--sky),var(--blue));
+      color:#fff;font-weight:700;font-size:.88rem;
+      border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .rev-name{font-size:.88rem;font-weight:700;color:var(--navy)}
+    .rev-loc{font-size:.78rem;color:var(--muted)}
+
+    /* ══════════════════════════════════════════
+       AREAS
+    ══════════════════════════════════════════ */
+    .areas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .area{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:10px;padding:13px 16px;
+      font-size:.9rem;color:var(--text);
+      transition:all .2s;box-shadow:var(--sh-sm);
+      display:flex;align-items:center;gap:6px;
+    }
+    .area:hover{border-color:var(--sky);color:var(--blue)}
+
+    /* ══════════════════════════════════════════
+       FAQ
+    ══════════════════════════════════════════ */
+    .faq-list{max-width:800px}
+    .faq-it{border-bottom:1.5px solid var(--border)}
+    .faq-q{
+      width:100%;background:none;border:none;
+      color:var(--navy);font-size:.96rem;font-weight:600;
+      padding:19px 0;text-align:left;cursor:pointer;
+      display:flex;justify-content:space-between;align-items:center;
+      gap:16px;font-family:inherit;
+    }
+    .faq-q:hover{color:var(--sky)}
+    .faq-ic{
+      flex-shrink:0;width:26px;height:26px;
+      background:var(--sky-lt);border:1.5px solid var(--border);
+      color:var(--blue);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.1rem;font-weight:700;transition:transform .3s;line-height:1;
+    }
+    .faq-it.open .faq-ic{transform:rotate(45deg);background:var(--sky);color:#fff;border-color:var(--sky)}
+    .faq-ans{max-height:0;overflow:hidden;transition:max-height .38s ease}
+    .faq-ans-in{padding-bottom:18px;font-size:.9rem;color:var(--muted);line-height:1.8}
+    .faq-it.open .faq-ans{max-height:320px}
+
+    /* ══════════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════════ */
+    .ct-grid{display:grid;grid-template-columns:1fr 430px;gap:48px;align-items:start}
+    .ct-form-card{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:16px;padding:34px;box-shadow:var(--sh-md);
+    }
+    .ct-form-card h3{font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+    .ct-form-sub{font-size:.83rem;color:var(--muted);margin-bottom:22px}
+    .ct-info{display:flex;flex-direction:column;gap:18px;margin-bottom:26px}
+    .ct-row{display:flex;align-items:flex-start;gap:13px}
+    .ct-ic{
+      width:46px;height:46px;min-width:46px;
+      background:var(--sky-lt);border:1.5px solid var(--border);
+      border-radius:10px;display:flex;align-items:center;
+      justify-content:center;font-size:1.2rem;
+    }
+    .ct-lbl{font-size:.72rem;color:var(--muted);margin-bottom:2px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+    .ct-val{font-weight:600;font-size:.93rem;color:var(--navy)}
+    .ct-val a{color:var(--sky)}
+    .ct-note{font-size:.78rem;color:var(--muted)}
+    .gbox{
+      background:var(--gold-lt);border:1.5px solid var(--gold-bd);
+      border-radius:10px;padding:15px 18px;
+      font-size:.86rem;color:var(--text);line-height:1.65;
+    }
+    .gbox strong{color:var(--gold);font-weight:700}
+    .f-success{display:none;text-align:center;padding:28px 0}
+    .f-success .si2{font-size:3rem;margin-bottom:12px}
+    .f-success h3{font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+    .f-success p{color:var(--muted);font-size:.9rem}
+
+    /* ══════════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════════ */
+    .ab-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+    .ab-text p{color:var(--muted);line-height:1.85;margin-bottom:14px;font-size:.94rem}
+    .ab-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+    .ab-stat{
+      background:var(--white);border:1.5px solid var(--border);
+      border-radius:12px;padding:20px;text-align:center;box-shadow:var(--sh-sm);
+    }
+    .ab-stat-n{font-size:1.9rem;font-weight:800;color:var(--sky)}
+    .ab-stat-l{font-size:.82rem;color:var(--muted);margin-top:4px}
+    .ab-hls{display:flex;flex-direction:column;gap:13px}
+    .ab-hl{
+      background:var(--white);border:1.5px solid var(--border);
+      border-left:4px solid var(--sky);border-radius:0 12px 12px 0;
+      padding:16px 18px;box-shadow:var(--sh-sm);
+    }
+    .ab-hl h4{font-size:.92rem;font-weight:700;margin-bottom:5px;color:var(--navy)}
+    .ab-hl p{font-size:.83rem;color:var(--muted);line-height:1.65}
+
+    /* ══════════════════════════════════════════
+       CTA BANNER
+    ══════════════════════════════════════════ */
+    .cta-ban{
+      background:linear-gradient(135deg,var(--navy),var(--blue));
+      padding:64px 20px;text-align:center;position:relative;overflow:hidden;
+    }
+    .cta-ban::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at 50% 50%,rgba(58,143,214,.2) 0%,transparent 65%);
+    }
+    .cta-ban h2{font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:800;color:#fff;margin-bottom:10px;position:relative;letter-spacing:-.02em}
+    .cta-ban p{color:rgba(255,255,255,.7);margin-bottom:28px;font-size:.97rem;position:relative}
+    .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer{background:var(--navy);padding:56px 20px 26px;color:#9ab3cf}
+    .ft-inner{max-width:1200px;margin:0 auto}
+    .ft-grid{
+      display:grid;grid-template-columns:1.8fr 1fr 1fr 1.4fr;
+      gap:40px;padding-bottom:36px;
+      border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:22px;
+    }
+    .ft-brand p{font-size:.85rem;color:#5a7898;line-height:1.75;margin-top:14px}
+    .ft-col h5{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-hi);margin-bottom:13px}
+    .ft-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+    .ft-col ul li{font-size:.85rem;color:#5a7898}
+    .ft-col ul li a{color:#5a7898;transition:color .2s}
+    .ft-col ul li a:hover{color:#fff}
+    .ft-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .ft-bot p{font-size:.78rem;color:#3d566e}
+    .ft-badges{display:flex;gap:7px;flex-wrap:wrap}
+    .ft-badge{font-size:.72rem;padding:3px 10px;background:rgba(58,143,214,.12);border:1px solid rgba(58,143,214,.25);color:var(--sky);border-radius:5px}
+
+    /* ══════════════════════════════════════════
+       MOBILE STICKY BAR
+    ══════════════════════════════════════════ */
+    .sticky{
+      display:none;position:fixed;bottom:0;left:0;right:0;
+      z-index:900;background:var(--navy);
+      border-top:2px solid var(--sky);padding:10px 14px;gap:10px;
+    }
+    .sticky a{
+      flex:1;padding:13px 10px;text-align:center;
+      font-weight:700;font-size:.88rem;border-radius:8px;
+      display:flex;align-items:center;justify-content:center;gap:6px;
+      min-height:48px;
+    }
+
+    /* ══════════════════════════════════════════
+       BOOKING MODAL — scrollable, keyboard-safe
+    ══════════════════════════════════════════ */
+    .modal-bg{
+      display:none;position:fixed;inset:0;
+      background:rgba(11,37,69,.7);z-index:3000;
+      align-items:flex-start;justify-content:center;
+      padding:16px;padding-top:4vh;
+      overflow-y:auto;-webkit-overflow-scrolling:touch;
+    }
+    .modal-bg.open{display:flex}
+    .modal{
+      background:var(--white);border-radius:18px;
+      padding:30px;width:100%;max-width:490px;
+      position:relative;overflow-y:auto;
+      max-height:90vh;-webkit-overflow-scrolling:touch;
+      margin:auto;box-shadow:var(--sh-lg);
+      border-top:4px solid var(--sky);
+    }
+    .modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px}
+    .modal-title{font-size:1.15rem;font-weight:800;color:var(--navy)}
+    .modal-svc{font-size:.85rem;color:var(--sky);margin-top:4px;font-weight:600}
+    .modal-x{
+      background:var(--sky-lt);border:none;border-radius:50%;
+      width:34px;height:34px;font-size:1.1rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--blue);transition:all .2s;flex-shrink:0;
+    }
+    .modal-x:hover{background:var(--sky);color:#fff}
+    .modal-div{height:1.5px;background:var(--border);margin:16px 0}
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — TABLET
+    ══════════════════════════════════════════ */
+    @media(max-width:1060px){
+      .hero-inner{grid-template-columns:1fr;max-width:640px}
+      .why-wrap{grid-template-columns:1fr}
+      .steps{grid-template-columns:repeat(2,1fr)}
+      .rev-grid{grid-template-columns:1fr 1fr}
+      .ct-grid{grid-template-columns:1fr}
+      .ab-grid{grid-template-columns:1fr}
+      .ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+      .areas{grid-template-columns:repeat(3,1fr)}
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — MOBILE
+    ══════════════════════════════════════════ */
+    @media(max-width:768px){
+      .nav-links,.nav-ctas{display:none}
+      .hamburger{display:flex}
+      .sticky{display:flex}
+      body{padding-bottom:72px}
+      .sec{padding:52px 16px}
+      .hero{padding:50px 16px 60px}
+      .hero-inner{gap:36px}
+      .stats-inner{grid-template-columns:repeat(2,1fr);gap:12px}
+      .si-num{font-size:1.15rem}
+      .srv-grid{grid-template-columns:1fr;gap:13px}
+      .why-feats{grid-template-columns:1fr;gap:12px}
+      .cl{grid-template-columns:1fr 1fr}
+      .steps{grid-template-columns:1fr;gap:12px}
+      .rev-grid{grid-template-columns:1fr}
+      .areas{grid-template-columns:1fr 1fr;gap:10px}
+      .ab-stats{grid-template-columns:1fr 1fr;gap:12px}
+      .h-form{padding:22px}
+      .ct-form-card{padding:20px}
+      .cta-row{flex-direction:column;align-items:center}
+      .cta-row .btn{width:100%;max-width:320px}
+      .ft-grid{grid-template-columns:1fr;gap:22px}
+      footer{padding:36px 16px 18px}
+    }
+    @media(max-width:480px){
+      .hero h1{font-size:1.85rem}
+      .hero-btns{flex-direction:column}
+      .hero-btns .btn{width:100%;padding:14px}
+      .cl{grid-template-columns:1fr}
+      .ab-stats{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════ TOP BAR — text centered ════ -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <span>📍 Greater Sydney &amp; NSW &nbsp;·&nbsp; Mon–Sat · 7am–7pm</span>
+    <span>
+      <span class="tb-badge">24H REPORTS</span>
+      📞 <a href="tel:0401427366">0401427366</a>
+    </span>
+  </div>
+</div>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#">
+      <div class="logo-chip sm">
+        <img src="sitescop website logo.png"
+         alt="Sitescop">
+</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#areas">Areas</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="tel:0401427366" class="nav-phone">📞 0401427366</a>
+      <a href="#contact" class="btn btn-gold">Get Free Quote</a>
+    </div>
+    <!-- HAMBURGER — fixed with inline onclick -->
+    <button class="hamburger" onclick="openMob()" aria-label="Open menu" aria-expanded="false" id="burgerBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════ MOBILE MENU ════ -->
+<div class="m-overlay" id="mOverlay" onclick="closeMob()"></div>
+<div class="m-menu" id="mMenu">
+  <div class="m-head">
+    <div class="logo-chip" style="padding:4px 7px">
+      <img src="data:image/jpeg;base64,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" alt="Sitescop" style="height:44px;mix-blend-mode:screen;filter:brightness(1.4)">
+    </div>
+    <button class="m-close" onclick="closeMob()" aria-label="Close">✕</button>
+  </div>
+  <ul class="m-links">
+    <li><a href="#" onclick="closeMob()">Home</a></li>
+    <li><a href="#services" onclick="closeMob()">Services</a></li>
+    <li><a href="#process" onclick="closeMob()">How It Works</a></li>
+    <li><a href="#reviews" onclick="closeMob()">Reviews</a></li>
+    <li><a href="#areas" onclick="closeMob()">Areas</a></li>
+    <li><a href="#faq" onclick="closeMob()">FAQ</a></li>
+    <li><a href="#contact" onclick="closeMob()">Contact</a></li>
+    <li><a href="#about" onclick="closeMob()">About Us</a></li>
+  </ul>
+  <div class="m-ctas">
+    <a href="tel:0401427366" class="btn btn-outline-blue">📞 0401427366</a>
+    <a href="#contact" class="btn btn-gold" onclick="closeMob()">📋 Get Free Quote</a>
+  </div>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">⭐ Sydney's #1 Rated Building Inspectors</div>
+      <h1>Don't Buy a Property<br><em>Without Knowing</em><br>What's Inside.</h1>
+      <div class="h-line"></div>
+      <p class="hero-sub">Our experienced inspectors uncover every defect, risk, and pest issue before you sign — saving Sydney buyers thousands. Detailed reports delivered within 24 hours.</p>
+      <div class="hero-btns">
+        <!-- BOOK AN INSPECTION — fixed with inline onclick -->
+        <button type="button" class="btn btn-gold" onclick="openModal('General Inspection')">📋 Book an Inspection</button>
+        <a href="tel:0401427366" class="btn btn-outline-blue">📞 Call Now</a>
+      </div>
+      <div class="trust-row">
+        <span class="trust-item">Reports in 24 hours</span>
+        <span class="trust-item">Qualified &amp; insured</span>
+        <span class="trust-item">4.9★ Google rated</span>
+        <span class="trust-item">10,000+ inspections</span>
+      </div>
+    </div>
+    <div class="h-form">
+      <div class="h-form-title">📋 Get a Free Quote Fast</div>
+      <div class="h-form-sub">Our team will contact you shortly.</div>
+      <hr>
+      <form id="heroForm" onsubmit="handleHero(event)">
+        <div class="fg">
+          <label>Inspection Type</label>
+          <select name="service" required>
+            <option value="">Select inspection...</option>
+            <option>Pre-Purchase Building Inspection</option>
+            <option>Pest &amp; Termite Inspection</option>
+            <option>Combined Building &amp; Pest</option>
+            <option>Pre-Sale Inspection</option>
+            <option>Strata Inspection</option>
+            <option>New Construction Stage Inspections</option>
+            <option>Handover / PCI Inspection</option>
+            <option>Dilapidation Reports</option>
+            <option>Structural Engineering Inspection</option>
+            <option>Asbestos Inspection</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Property Address</label>
+          <input type="text" name="address" placeholder="123 Main St, Sydney NSW" required>
+        </div>
+        <div class="fg">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="John Smith" required>
+        </div>
+        <div class="fg">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="04xx xxx xxx" required>
+        </div>
+        <button type="submit" class="f-btn">Get My Free Quote →</button>
+        <p class="f-note">🔒 No spam. We'll call within 2 hours.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STATS BAR ════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="si"><span class="si-icon">🏠</span><div><div class="si-num">10k+</div><div class="si-lbl">Inspections completed</div></div></div>
+    <div class="si"><span class="si-icon">⭐</span><div><div class="si-num">4.9★</div><div class="si-lbl">Average star rating</div></div></div>
+    <div class="si"><span class="si-icon">⚡</span><div><div class="si-num">24h</div><div class="si-lbl">Report turnaround</div></div></div>
+    <div class="si"><span class="si-icon">🏅</span><div><div class="si-num">100%</div><div class="si-lbl">Experienced &amp; insured</div></div></div>
+  </div>
+</div>
+
+<!-- ════ SERVICES ════ -->
+<section class="sec sec-b" id="services">
+  <div class="wrap">
+    <div class="tag">Our Services</div>
+    <h2 class="sec-title">Comprehensive inspection services across Sydney.</h2>
+    <p class="sec-sub">Every inspection is conducted by a qualified, fully insured inspector. Tap any service to book instantly.</p>
+    <div class="srv-grid" id="srvGrid"></div>
+  </div>
+</section>
+
+<!-- ════ WHY SITESCOP ════ -->
+<section class="sec sec-w" id="why">
+  <div class="wrap">
+    <div class="why-wrap">
+      <div>
+        <div class="tag">Why Sitescop</div>
+        <h2 class="sec-title">We find what other inspectors miss.</h2>
+        <div class="blue-line"></div>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:26px;font-size:.97rem">Most inspections take 45 minutes and miss critical defects. Our inspectors spend 2–3 hours on every property, documenting everything with photos and thermal imaging.</p>
+        <div class="why-feats">
+          <div class="why-feat"><div class="why-feat-ic">📸</div><h4>Photo-documented reports</h4><p>Every defect photographed, rated by severity, described in plain English.</p></div>
+          <div class="why-feat"><div class="why-feat-ic">🎯</div><h4>Qualified &amp; fully insured</h4><p>Every inspector holds a current NSW building licence and full professional indemnity insurance.</p></div>
+          <div class="why-feat"><div class="why-feat-ic">🌡️</div><h4>Thermal imaging included</h4><p>We detect moisture, termites, and electrical faults invisible to the naked eye — at no extra cost.</p></div>
+          <div class="why-feat"><div class="why-feat-ic">📞</div><h4>Inspector call-back</h4><p>Your inspector is available after the report for a 15-minute call to walk through key findings.</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="cl-head">What's covered in every inspection</p>
+        <div class="cl-box">
+          <ul class="cl">
+            <li>Roof structure &amp; covering</li><li>Gutters &amp; downpipes</li>
+            <li>Walls, floors &amp; ceilings</li><li>Foundation &amp; subfloor</li>
+            <li>Doors, windows &amp; frames</li><li>Electrical (visual)</li>
+            <li>Plumbing (visual)</li><li>Drainage &amp; water damage</li>
+            <li>Timber pest activity</li><li>Safety hazards</li>
+            <li>Retaining walls</li><li>Garages &amp; outbuildings</li>
+            <li>Stairways &amp; balconies</li><li>Fencing &amp; boundary</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ HOW IT WORKS ════ -->
+<section class="sec sec-b" id="process">
+  <div class="wrap">
+    <div class="tag">How It Works</div>
+    <h2 class="sec-title">Booked, inspected, reported. In 24 hours.</h2>
+    <p class="sec-sub">Getting a building and pest inspection with Sitescop is simple, fast, and stress-free.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h4>Book Your Inspection</h4><p>Select your inspection type online, by phone, or via WhatsApp. Same-week appointments available across Sydney.</p></div>
+      <div class="step"><div class="step-num">2</div><h4>Inspector Visits the Property</h4><p>Your experienced inspector arrives on time and conducts a thorough 2–3 hour inspection with thermal imaging and photo documentation.</p></div>
+      <div class="step"><div class="step-num">3</div><h4>Receive Your Report</h4><p>A detailed, photo-rich PDF report lands in your inbox within 24 hours — often the same day as the inspection.</p></div>
+      <div class="step"><div class="step-num">4</div><h4>Negotiate With Confidence</h4><p>Use your report to renegotiate the purchase price, request repairs, or walk away from a bad deal — fully informed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ REVIEWS ════ -->
+<section class="sec sec-w" id="reviews">
+  <div class="wrap">
+    <div class="tag">Client Reviews</div>
+    <h2 class="sec-title">Trusted by Sydney homebuyers.</h2>
+    <p class="sec-sub">Real experiences from real clients across Greater Sydney.</p>
+    <div class="rev-grid">
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-src">Google Review</div><p class="rev-text">"Sitescop found significant termite activity the selling agent didn't disclose. We used the report to negotiate $22,000 off the price. Absolutely saved us from a nightmare."</p><div class="rev-auth"><div class="rev-av">MT</div><div><div class="rev-name">Michael T.</div><div class="rev-loc">Parramatta, NSW</div></div></div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-src">Google Review</div><p class="rev-text">"Incredibly thorough. The report was 52 pages with photos of every single issue. My solicitor said it was the most comprehensive inspection report she'd ever seen in 15 years."</p><div class="rev-auth"><div class="rev-av">SK</div><div><div class="rev-name">Sarah K.</div><div class="rev-loc">Bondi, NSW</div></div></div></div>
+      <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-src">Google Review</div><p class="rev-text">"Booked Monday, inspected Tuesday, report Wednesday morning. Used it to negotiate $18k off the asking price. The inspector even called me to explain the issues. Outstanding."</p><div class="rev-auth"><div class="rev-av">JR</div><div><div class="rev-name">James R.</div><div class="rev-loc">Penrith, NSW</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ AREAS ════ -->
+<section class="sec sec-b" id="areas">
+  <div class="wrap">
+    <div class="tag">Service Areas</div>
+    <h2 class="sec-title">We cover all of Greater Sydney.</h2>
+    <p class="sec-sub">Our team of local inspectors covers every suburb across Greater Sydney and surrounding NSW regions.</p>
+    <div class="areas">
+      <div class="area">📍 Sydney CBD</div><div class="area">📍 Parramatta</div>
+      <div class="area">📍 Eastern Suburbs</div><div class="area">📍 North Shore</div>
+      <div class="area">📍 Inner West</div><div class="area">📍 Penrith</div>
+      <div class="area">📍 Liverpool</div><div class="area">📍 Hills District</div>
+      <div class="area">📍 Sutherland Shire</div><div class="area">📍 Blacktown</div>
+      <div class="area">📍 Northern Beaches</div><div class="area">📍 Campbelltown</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="sec sec-w" id="faq">
+  <div class="wrap">
+    <div class="tag">FAQ</div>
+    <h2 class="sec-title">Common questions.</h2>
+    <div class="blue-line"></div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ════ CONTACT ════ -->
+<section class="sec sec-b" id="contact">
+  <div class="wrap">
+    <div class="tag">Get In Touch</div>
+    <h2 class="sec-title">Book your inspection. We'll handle the rest.</h2>
+    <p class="sec-sub">Fill in the form and our team will get back to you within 2 hours to confirm your booking.</p>
+    <div class="ct-grid">
+      <div>
+        <div class="ct-info">
+          <div class="ct-row"><div class="ct-ic">📞</div><div><div class="ct-lbl">Phone</div><div class="ct-val"><a href="tel:0401427366">0401427366</a></div><div class="ct-note">Mon–Sat, 7am–7pm</div></div></div>
+          <div class="ct-row"><div class="ct-ic">💬</div><div><div class="ct-lbl">WhatsApp</div><div class="ct-val"><a href="https://wa.me/61401427366">WhatsApp Us</a></div><div class="ct-note">Quick response, any time</div></div></div>
+          <div class="ct-row"><div class="ct-ic">📧</div><div><div class="ct-lbl">Email</div><div class="ct-val"><a href="mailto:info@sitescop.com.au">info@sitescop.com.au</a></div><div class="ct-note">We respond within 2 hours</div></div></div>
+          <div class="ct-row"><div class="ct-ic">📍</div><div><div class="ct-lbl">Location</div><div class="ct-val">Greater Sydney &amp; NSW</div><div class="ct-note">We come to your property</div></div></div>
+        </div>
+        <div class="gbox"><strong>✓ 24-hour report guarantee.</strong> Your full inspection report delivered within 24 hours — or your next inspection is free.</div>
+      </div>
+      <div class="ct-form-card">
+        <h3>Book Your Inspection</h3>
+        <p class="ct-form-sub">Free quote · No obligation · Response within 2 hours</p>
+        <form id="ctForm" onsubmit="handleCt(event)">
+          <div class="fg"><label>Full Name *</label><input type="text" name="name" placeholder="John Smith" required></div>
+          <div class="fg"><label>Property Address *</label><input type="text" name="address" placeholder="123 Main St, Sydney NSW" required></div>
+          <div class="fg">
+            <label>Inspection Type *</label>
+            <select name="service" required>
+              <option value="">Select type...</option>
+              <option>Pre-Purchase Building Inspection — from $350</option>
+              <option>Pest &amp; Termite Inspection — from $280</option>
+              <option>Combined Building &amp; Pest — from $499</option>
+              <option>Pre-Sale Inspection — from $350</option>
+              <option>Strata Inspection — from $420</option>
+              <option>New Construction Stage Inspections — from $380</option>
+              <option>Handover / PCI Inspection — from $450</option>
+              <option>Dilapidation Reports — from $400</option>
+              <option>Structural Engineering Inspection — from $650</option>
+              <option>Asbestos Inspection — from $320</option>
+            </select>
+          </div>
+          <div class="fg"><label>Preferred Date</label><input type="date" name="date"></div>
+          <div class="fg"><label>Additional Notes</label><textarea name="notes" placeholder="Property age, access notes, specific concerns..."></textarea></div>
+          <button type="submit" class="f-btn">📋 Submit Booking Request →</button>
+          <p class="f-note">🔒 Your details are secure and never shared.</p>
+        </form>
+        <div class="f-success" id="ctSuccess">
+          <div class="si2">✅</div>
+          <h3>Booking Request Received!</h3>
+          <p>Our team will call you within 2 hours to confirm your inspection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ABOUT ════ -->
+<section class="sec sec-w" id="about">
+  <div class="wrap">
+    <div class="ab-grid">
+      <div class="ab-text">
+        <div class="tag">About Us</div>
+        <h2 class="sec-title">Sydney's trusted building inspection specialists.</h2>
+        <div class="blue-line"></div>
+        <p>Sitescop was founded by a team of experienced NSW building inspectors with one goal: give Sydney property buyers the honest, detailed information they need to make confident decisions.</p>
+        <p>With over 10 years of experience across Greater Sydney, our inspectors have assessed thousands of properties — from inner-city apartments to sprawling acreage estates.</p>
+        <p>Every Sitescop inspector is fully qualified, trained in thermal imaging, and covered by comprehensive professional indemnity insurance. We work only for you — never for agents, developers, or vendors.</p>
+        <div class="ab-stats">
+          <div class="ab-stat"><div class="ab-stat-n">10,000+</div><div class="ab-stat-l">Inspections completed</div></div>
+          <div class="ab-stat"><div class="ab-stat-n">10+</div><div class="ab-stat-l">Years experience</div></div>
+          <div class="ab-stat"><div class="ab-stat-n">4.9★</div><div class="ab-stat-l">Google rating</div></div>
+          <div class="ab-stat"><div class="ab-stat-n">100%</div><div class="ab-stat-l">Qualified team</div></div>
+        </div>
+      </div>
+      <div class="ab-hls">
+        <div class="ab-hl"><h4>🏠 We work for you — not the agent</h4><p>Completely independent. No relationships with agencies, developers, or vendors. Our only obligation is to give you an accurate, honest report.</p></div>
+        <div class="ab-hl"><h4>📋 Same-week appointments</h4><p>Property deals move fast. That's why we offer same-week bookings and 24-hour report delivery across all Greater Sydney suburbs.</p></div>
+        <div class="ab-hl"><h4>🌡️ Thermal imaging as standard</h4><p>Every Sitescop inspection includes our full thermal camera scan — at no additional cost.</p></div>
+        <div class="ab-hl"><h4>🎯 Qualified &amp; fully insured</h4><p>All inspectors hold current NSW builder licences and carry full professional indemnity and public liability insurance.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA BANNER ════ -->
+<div class="cta-ban">
+  <div style="max-width:680px;margin:0 auto">
+    <h2>Ready to protect your investment?</h2>
+    <p>Same-week bookings available. Reports delivered within 24 hours.</p>
+    <div class="cta-row">
+      <a href="https://wa.me/61401427366" class="btn btn-gold">💬 WhatsApp Us</a>
+      <a href="tel:0401427366" class="btn btn-outline-white">📞 Call Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="logo-chip" style="padding:5px 8px">
+          <img src="data:image/jpeg;base64,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" alt="Sitescop" style="height:54px;mix-blend-mode:screen;filter:brightness(1.4)">
+        </div>
+        <p>Sydney's trusted building and pest inspection specialists. Experienced, insured, and committed to protecting your property investment.</p>
+      </div>
+      <div class="ft-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Pre-Purchase Inspection</a></li>
+          <li><a href="#services">Pest &amp; Termite</a></li>
+          <li><a href="#services">Combined Package</a></li>
+          <li><a href="#services">Pre-Sale Inspection</a></li>
+          <li><a href="#services">Strata Inspection</a></li>
+          <li><a href="#services">Stage Inspections</a></li>
+          <li><a href="#services">Handover / PCI</a></li>
+          <li><a href="#services">Dilapidation Reports</a></li>
+          <li><a href="#services">Structural Engineering</a></li>
+          <li><a href="#services">Asbestos Inspection</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#process">How It Works</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#areas">Areas We Cover</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:0401427366">📞 0401427366</a></li>
+          <li>📧 info@sitescop.com.au</li>
+          <li>📍 Greater Sydney, NSW</li>
+          <li>🕐 Mon–Sat · 7am–7pm</li>
+          <li><a href="https://wa.me/61401427366">💬 WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>© 2026 Sitescop — Building &amp; Pest Inspections Sydney. All rights reserved.</p>
+      <div class="ft-badges">
+        <span class="ft-badge">✓ NSW Qualified</span>
+        <span class="ft-badge">✓ Fully Insured</span>
+        <span class="ft-badge">✓ 24h Reports</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════ MOBILE STICKY BAR ════ -->
+<div class="sticky">
+  <a href="tel:0401427366" class="btn btn-outline-white">📞 Call Us</a>
+  <a href="#contact" class="btn btn-gold" onclick="closeMob()">📋 Get Free Quote</a>
+</div>
+
+<!-- ════ BOOKING MODAL — scrollable, keyboard-safe ════ -->
+<div class="modal-bg" id="modalBg" onclick="handleModalBgClick(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Book an Inspection</div>
+        <div class="modal-svc" id="modalSvc"></div>
+      </div>
+      <button class="modal-x" onclick="closeModal()" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-div"></div>
+    <form id="modalForm" onsubmit="handleModal(event)">
+      <div class="fg">
+        <label>Inspection Type *</label>
+        <select name="service" id="modalSel" required>
+          <option value="">Select inspection type...</option>
+          <option>Pre-Purchase Building Inspection</option>
+          <option>Pest &amp; Termite Inspection</option>
+          <option>Combined Building &amp; Pest</option>
+          <option>Pre-Sale Inspection</option>
+          <option>Strata Inspection</option>
+          <option>New Construction Stage Inspections</option>
+          <option>Handover / PCI Inspection</option>
+          <option>Dilapidation Reports</option>
+          <option>Structural Engineering Inspection</option>
+          <option>Asbestos Inspection</option>
+        </select>
+      </div>
+      <div class="fg"><label>Full Name *</label><input type="text" name="name" placeholder="John Smith" required></div>
+      <div class="fg"><label>Phone Number *</label><input type="tel" name="phone" placeholder="04xx xxx xxx" required></div>
+      <div class="fg"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Sydney NSW"></div>
+      <div class="fg"><label>Preferred Date</label><input type="date" name="date"></div>
+      <button type="submit" class="f-btn">📋 Confirm My Booking →</button>
+      <p class="f-note" style="margin-top:10px">🔒 No spam. We'll call you within 2 hours to confirm.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════
+   SERVICES DATA (10 services)
+════════════════════════════ */
+var SVCS=[
+  {icon:'<img src="pre-purchase-building-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Pre-Purchase Building Inspection",desc:"The most important report you'll commission. We identify structural defects, water damage, roof issues, and safety hazards before you exchange contracts.",price:"From $350",tag:"Report in 24h"},
+  {icon:'<img src="pest-termite-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Pest & Termite Inspection",desc:"Termites cost Australian homeowners billions every year. Our thermal imaging technology detects infestations completely invisible to the naked eye.",price:"From $280",tag:"Report in 24h"},
+  {icon:'<img src="combined-building-pest.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Combined Building & Pest",desc:"Our most popular package. Full structural inspection and comprehensive pest assessment in one visit — our best value pricing.",price:"From $499",tag:"Best value"},
+  {icon:'<img src="pre-sale-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Pre-Sale Inspection",desc:"Selling? Know exactly what buyers will find. Fix issues before listing and avoid last-minute renegotiations.",price:"From $350",tag:"Report in 24h"},
+  {icon:'<img src="strata-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Strata Inspection",desc:"Buying into a strata complex? We assess common areas, structure, compliance, and the body corporate maintenance history.",price:"From $420",tag:"Report in 24h"},
+  {icon:'<img src="new-construction-stage-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"New Construction Stage Inspections",desc:"We inspect your new build at every critical construction stage — slab, frame, lock-up, and fixing — catching defects before they're covered up.",price:"From $380",tag:"Per stage"},
+  {icon:'<img src="handover-pci-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Handover / PCI Inspection",desc:"A Practical Completion Inspection ensures your finished new build meets the agreed specifications before you accept handover from the builder.",price:"From $450",tag:"Report in 24h"},
+  {icon:'<img src="dilapidation-report.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Dilapidation Reports",desc:"Protect yourself from false damage claims. Our reports document the existing condition of your property before nearby construction begins.",price:"From $400",tag:"Report in 24h"},
+  {icon:'<img src="structural-engineering-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Structural Engineering Inspection",desc:"Our certified structural engineers assess foundations, load-bearing walls, and major defects — providing a professional engineering opinion.",price:"From $650",tag:"Engineer certified"},
+  {icon:'<img src="asbestos-inspection.png" style="width:100%;height:180px;object-fit:cover;border-radius:12px 12px 0 0;">',name:"Asbestos Inspection",desc:"Homes built before 1990 may contain asbestos. Our experienced inspectors identify, assess, and document all suspected materials.",price:"From $320",tag:"Licensed inspector"}
+];
+
+/* Render service cards */
+(function(){
+  var g=document.getElementById("srvGrid");
+  SVCS.forEach(function(s){
+    var c=document.createElement("div");
+    c.className="srv-card";c.tabIndex=0;c.setAttribute("role","button");
+    c.innerHTML="<div class='srv-icon'>"+s.icon+"</div><h3>"+s.name+"</h3><p>"+s.desc+"</p><div class='srv-meta'><span class='srv-price'>"+s.price+"</span><span class='srv-tag'>"+s.tag+"</span></div><p class='srv-hint'>Tap to book &#8594;</p>";
+    c.onclick=function(){openModal(s.name);};
+    c.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();openModal(s.name);}};
+    g.appendChild(c);
+  });
+})();
+
+/* FAQ */
+(function(){
+  var FAQS=[
+    {q:"How long does an inspection take?",a:"A thorough inspection typically takes 2–3 hours for an average-sized property. We never rush — your report's accuracy depends on the time we invest on-site."},
+    {q:"Do I need to be there during the inspection?",a:"It's not required, but we strongly recommend it. Being present lets you ask questions in real time and your inspector can point out key findings directly."},
+    {q:"How quickly will I receive my report?",a:"Your full inspection report will be emailed to you within 24 hours of the inspection — often the same evening. Property deals move fast and our reporting reflects that."},
+    {q:"What if the report finds serious issues?",a:"Most buyers use the findings to negotiate a price reduction or request repairs before settlement. In serious cases, the report gives you the evidence to walk away with confidence."},
+    {q:"Is the inspection covered by insurance?",a:"Yes. Every Sitescop inspection is backed by full professional indemnity and public liability insurance. You're fully protected."},
+    {q:"Can I book a same-day inspection?",a:"In many cases yes. Call us on 0401427366 or send a WhatsApp message — we can often accommodate requests with 24-hour notice across Sydney."}
+  ];
+  var fl=document.getElementById("faqList");
+  FAQS.forEach(function(f){
+    var i=document.createElement("div");i.className="faq-it";
+    i.innerHTML="<button class='faq-q' type='button'>"+f.q+"<span class='faq-ic'>+</span></button><div class='faq-ans'><div class='faq-ans-in'>"+f.a+"</div></div>";
+    i.querySelector(".faq-q").onclick=function(){
+      var o=i.classList.contains("open");
+      document.querySelectorAll(".faq-it.open").forEach(function(x){x.classList.remove("open");});
+      if(!o)i.classList.add("open");
+    };
+    fl.appendChild(i);
+  });
+})();
+
+/* ════ MOBILE MENU — bulletproof functions ════ */
+function openMob(){
+  document.getElementById("mMenu").classList.add("open");
+  document.getElementById("mOverlay").classList.add("open");
+  document.getElementById("burgerBtn").setAttribute("aria-expanded","true");
+  document.body.style.overflow="hidden";
+}
+function closeMob(){
+  document.getElementById("mMenu").classList.remove("open");
+  document.getElementById("mOverlay").classList.remove("open");
+  document.getElementById("burgerBtn").setAttribute("aria-expanded","false");
+  document.body.style.overflow="";
+}
+
+/* ════ MODAL — bulletproof functions ════ */
+function openModal(name){
+  var svc=document.getElementById("modalSvc");
+  var sel=document.getElementById("modalSel");
+  if(name&&name!=="General Inspection"){
+    svc.textContent=name;
+    var opts=sel.options;
+    
+    for(var i=0;i<opts.length;i++){
+      if(
+         opts[i].textContent.replace(/&/g,'&').trim() ===
+    name.replace(/&amp;/g,'&').trim()
+  ){
+    sel.selectedIndex=i;
+    break;
+        }
+    }
+  } else {
+    svc.textContent="Fill in your details below";
+    sel.selectedIndex=0;
+  }
+  document.getElementById("modalBg").classList.add("open");
+  document.body.style.overflow="hidden";
+  document.getElementById("modalBg").scrollTop=0;
+}
+function closeModal(){
+  document.getElementById("modalBg").classList.remove("open");
+  document.body.style.overflow="";
+  document.getElementById("modalForm").reset();
+  document.getElementById("modalSvc").textContent="";
+}
+function handleModalBgClick(e){
+  if(e.target===document.getElementById("modalBg"))closeModal();
+}
+
+/* ════ FORM HANDLERS ════ */
+async function handleHero(e){
+    e.preventDefault();
+
+    const form = document.getElementById("heroForm");
+
+const formData = new FormData(form);
+
+formData.append(
+  "Sydney_Time",
+  new Date().toLocaleString("en-AU", {
+    timeZone: "Australia/Sydney"
+  })
+);
+
+    try {
+        const response = await fetch("https://formspree.io/f/xzdqzonq", {
+            method: "POST",
+           body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if(response.ok){
+            form.innerHTML =
+            "<div style='text-align:center;padding:28px 0'><div style='font-size:3rem;margin-bottom:12px'>✅</div><h3 style='color:var(--navy);margin-bottom:8px'>Quote Request Received!</h3><p>Our team will call you within 2 hours.</p></div>";
+        } else {
+            alert('Submission failed.');
+        }
+    } catch(err){
+        alert('Submission failed.');
+    }
+}
+
+async function handleCt(e){
+    e.preventDefault();
+
+    const form = document.getElementById("ctForm");
+const formData = new FormData(form);
+
+formData.append(
+  "Sydney_Time",
+  new Date().toLocaleString("en-AU", {
+    timeZone: "Australia/Sydney"
+  })
+);
+    try {
+        const response = await fetch("https://formspree.io/f/xzdqzonq", {
+            method: "POST",
+           body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if(response.ok){
+            form.style.display = "none";
+            document.getElementById("ctSuccess").style.display = "block";
+        } else {
+            alert("Booking request failed.");
+        }
+    } catch(err){
+        alert("Booking request failed.");
+    }
+}
+async function handleModal(e){
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+formData.append(
+  "Sydney_Time",
+  new Date().toLocaleString("en-AU", {
+    timeZone: "Australia/Sydney"
+  })
+);
+
+    try {
+        const response = await fetch("https://formspree.io/f/xzdqzonq", {
+            method: "POST",
+           body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if(response.ok){
+            form.innerHTML =
+"<div style='text-align:center;padding:30px'>" +
+"<div style='font-size:3rem'>✅</div>" +
+"<h3>Booking Request Received!</h3>" +
+"<p>Our team will call you within 2 hours to confirm your inspection.</p>" +
+"</div>";
+        } else {
+            alert('Booking request failed.');
+        }
+    } catch(err){
+        alert('Booking request failed.');
+    }
+}
+ 
+
+/* Escape key closes modal */
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
+
+/* Smooth scroll */
+document.querySelectorAll("a[href^='#']").forEach(function(a){
+  a.addEventListener("click",function(e){
+    var id=this.getAttribute("href");
+    if(id==="#")return;
+    var t=document.querySelector(id);
+    if(t){e.preventDefault();closeMob();setTimeout(function(){t.scrollIntoView({behavior:"smooth",block:"start"});},10);}
+  });
+});
+</script>
+</body>
+</html> 
