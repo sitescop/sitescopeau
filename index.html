@@ -1116,6 +1116,7 @@ function closeMob(){
 }
 
 /* ════ MODAL — bulletproof functions ════ */
+  let originalModalForm = "";
 function openModal(name){
   var svc=document.getElementById("modalSvc");
   var sel=document.getElementById("modalSel");
@@ -1144,7 +1145,9 @@ function openModal(name){
 }
 function closeModal(){
   document.getElementById("modalBg").classList.remove("open");
+  
   document.body.style.overflow="";
+  document.getElementById("modalForm").innerHTML = originalModalForm;
   document.getElementById("modalForm").style.display = "block";
   document.getElementById("ctSuccess").style.display = "none";
   document.getElementById("modalForm").reset();
@@ -1256,7 +1259,7 @@ formData.append(
         alert('Booking request failed.');
     }
 }
- 
+ originalModalForm = document.getElementById("modalForm").innerHTML;
 
 /* Escape key closes modal */
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
