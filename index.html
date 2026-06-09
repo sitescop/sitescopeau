@@ -1023,7 +1023,12 @@ z-index:1;
       <div class="fg"><label>Preferred Date</label><input type="date" name="date"></div>
       <button type="submit" class="f-btn">📋 Confirm My Booking →</button>
       <p class="f-note" style="margin-top:10px">🔒 No spam. We'll call you within 2 hours to confirm.</p>
-    </form>
+    </form> 
+    <div id="ctSuccess" style="display:none;text-align:center;padding:30px;">
+  <div style="font-size:3rem;">✅</div>
+  <h3>Booking Request Received!</h3>
+  <p>Our team will call you within 2 hours to confirm your inspection.</p>
+</div>
   </div>
 </div>
 
@@ -1159,10 +1164,10 @@ formData.append(
             }
         });
 
-        if(response.ok){
-            form.innerHTML =
-            "<div style='text-align:center;padding:28px 0'><div style='font-size:3rem;margin-bottom:12px'>✅</div><h3 style='color:var(--navy);margin-bottom:8px'>Quote Request Received!</h3><p>Our team will call you within 2 hours.</p></div>";
-        } else {
+       if(response.ok){
+    form.style.display = "none";
+    document.getElementById("ctSuccess").style.display = "block";
+}  else {
             alert('Submission failed.');
         }
     } catch(err){
